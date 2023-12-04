@@ -1,0 +1,33 @@
+{%extends 'base.html' %}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'income' %}">Income</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Edit Income</li>
+    </ol>
+</nav>
+
+<h1>
+    Edit income
+</h1>
+
+<form action="{% url 'income-edit' income.id %}" method="post">
+
+    {% csrf_token %}
+    {% include 'partials/_messages.html' %}
+
+    <label for="amount">Amount</label><input type="text" value="{{values.amount}}" name="amount"><br>
+    <label for="date">Date of Income</label> <input type="date" value="{{values.date|date:"Y-m-d"}}" name="income_date"><br>
+    <label for="description">Description</label><input type="text" value="{{values.description}}" name="description"><br>
+    <label for="Source">Source</label><select name="source"><br>
+        <option name="source" selected value="{{values.source}}">{{values.source}}</option>
+        {% for source in categories %}
+        <option name="source" value="{{source.name}}">{{source.name}}</option>
+        {% endfor%}
+    </select><br>
+
+    <input type="submit" value="Edit">
+</form>
+
+{% endblock %}

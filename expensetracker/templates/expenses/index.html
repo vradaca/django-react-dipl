@@ -1,0 +1,111 @@
+{%extends 'base.html' %}
+{% load static%}
+{% block content %}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#">Expenses</a></li>
+      <li class="breadcrumb-item active" aria-current="page">My Expenses</li>
+    </ol>
+  </nav>
+
+  <div>
+
+    <a href="{% url 'add-expenses' %}"> Add expenses </a>
+
+  </div>
+
+<h1> Expense </h1>
+
+<div>
+{% include 'partials/_messages.html' %}
+{% if expenses.count %}
+<div id = "exports">
+    <a href="{% url 'export-csv'%}"> Export to CSV </a>
+    <a href="{% url 'export-xls'%}"> Export to Excel </a>
+    <a href="{% url 'export-pdf'%}"> Export to PDF </a>
+</div>
+
+<div>
+        <input type= "text" id="searchField" placeholder="Search">
+</div>
+
+    <div class = "app-table">
+        <table>
+        <thead>
+            <thead>
+                <tr>
+                    <th>Amount ({{currency}})</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in page_obj%}
+                <tr>
+                    <td>{{expense.amount}}</td>
+                    <td>{{expense.date}}</td>
+                    <td>{{expense.description}}</td>
+                    <td>{{expense.category}}</td>
+                    <td><a href="{% url 'expense-edit' expense.id %}">Edit</a></td>
+                    <td><a href="{% url 'expense-delete' expense.id %}">X</a></td>
+                    <td></td>
+                </tr>
+                {% endfor%}
+            </tbody>
+        </table>
+    </div>
+
+    <div class = "table-output">
+        <table>
+
+            <thead>
+                <thead>
+                    <tr>
+                        <th>Amount ({{currency}})</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody class = "table-body">
+                    
+                </tbody>
+            </table>
+    </div>
+
+    <div class="pagination">
+        Showing page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+    </div>
+
+
+{% endif %}
+</div>
+
+<form action="{% url 'logout' %}" method="POST">
+{% csrf_token %}
+    <hr>
+    <a href= "{% url 'preferences' %}">Preferences</a> <br>
+    <a href= "{% url 'income' %}">Income</a> <br>
+    <a href= "{% url 'stats' %}">Stats</a> <br>
+    <input type="submit" value= "Sign out"/>
+</form>
+
+
+<form action = "{% url 'delete-user' user.id %} " method="POST">
+{% csrf_token %}
+    <input type="submit" value="Delete account">
+</form>
+
+
+ <script src={% static 'js/searchExpenses.js' %}></script>
+
+ {{ redirect_to_login_immediatelly }}
+
+{% endblock %}

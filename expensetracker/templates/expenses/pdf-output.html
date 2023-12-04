@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        {% load static%}
+        <title>PDF output</title>
+        <style>
+
+            @page{
+                size:"A4";
+                margin 2.5cm 1.5cm 3.5cm 1.5cm;
+            
+            @top-center{
+                content: "Budget Tracker";
+            }
+
+            @bottom-right{
+                content:"Page " counter(page) " of " counter(pages);
+            }
+            }
+
+
+        </style>
+    </head>
+    <body>
+
+        
+        <img src="{% static 'img/PyMation_logo.png' %}" alt="PyMation Logo">
+        <h2>Expense List</h2>
+        <table class="table">
+            <thead class="thead">
+                <tr>
+                    <th>No</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for exp in expenses %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{exp.amount}}</td>
+                    <td>{{exp.date}}</td>
+                    <td>{{exp.description}}</td>
+                    <td>{{exp.category}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td>Total</td>
+                    <td>{{total}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </body>
+
+</html>

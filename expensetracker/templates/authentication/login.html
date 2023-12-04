@@ -1,0 +1,27 @@
+{% extends 'base_auth.html' %} 
+{% load static %}
+
+{% block content %}
+<div class="wrapper">
+    <h2>Login</h2>
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      {% include 'partials/_messages.html' %}
+      <div class="input-box">
+        <input name = "username" id="usernameField" type="text" placeholder="Enter your username" value = "{{field_values.username}}" required>
+      </div>
+      <div class="input-box">
+        <input name = "password" id="passwordField" type="password" placeholder="Create password" required>
+        <small class="show_pass">SHOW</small>
+        <span>Forgot password?  <a href="{% url 'reset-password' %}">Reset it</a></span>
+      </div>
+      <div class="input-box button">
+        <input id="submitBtn" type="Submit" value="Login">
+      </div>
+      <div class="text">
+        <h3>Don't have an account? <a href="{% url 'register' %}">Register now</a></h3>
+      </div>
+    </form>
+  </div>
+  <script src = "{% static "js/register.js" %}"></script>
+{% endblock %}
