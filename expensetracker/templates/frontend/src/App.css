@@ -89,13 +89,3 @@ html, body {
   height: auto;
   border-radius: 10px;
 }
-
-/* Footer styling */
-.App-footer {
-  background-color: #20232a;
-  color: white;
-  padding: 1rem;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
