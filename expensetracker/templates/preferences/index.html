@@ -1,6 +1,18 @@
-{%extends 'base.html'%}
-
+{%extends 'base_preferences.html'%}
+{%load static%}
 {%block content%}
+
+<nav class="navbar">
+    <div class="navbar-logo">
+        <a href="#"><img src="{% static 'img/PyMation_logo.png' %}" alt="Logo"></a>
+    </div>
+    <ul class="navbar-links">
+        <li><a href="{% url 'expenses' %}">Expenses</a></li>
+        <li><a href="{% url 'income' %}">Income</a></li>
+        <li><a href="{% url 'stats' %}">Statistics</a></li>
+        <li><a href="{% url 'account' %}">Account</a></li>
+    </ul>
+</nav>
 
 <h5>Preferred Currency</h5>
 
@@ -28,12 +40,9 @@
     {% endfor %}
 
     </select>
-    <input class="btn btn-outline-secondary" type="submit" value = "Save" />
+    <input class="btn btn-primary" type="submit" value = "Save" />
   </div>
 
 <hr>
-
-<a href = {% url 'expenses' %}> Back </a>
-
 
 {%endblock%}

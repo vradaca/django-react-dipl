@@ -1,0 +1,16 @@
+{% load static%}
+<html lang="en">
+    <head>
+        <title>
+            Account
+        </title>
+        <link rel="stylesheet" href="{% static 'css/account.css' %}">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src={% static 'js/deleteConfirmation.js'%}></script>
+    </head>
+    <body>
+        {% block content %}
+        {% endblock%}
+    </body>
+
+</html>

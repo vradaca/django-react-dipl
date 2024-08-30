@@ -15,7 +15,7 @@ searchField.addEventListener('keyup', (e)=> {
         pagination.style.display = "none";
         tBody.innerHTML = "";
 
-        fetch("/search-expenses", { 
+        fetch("/expenses/search-expenses", { 
             body: JSON.stringify({searchText: searchVal}),
             method: "POST", 
             })

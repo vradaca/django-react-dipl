@@ -1,0 +1,29 @@
+{% extends 'base_acc.html' %}
+{% load static%}
+{% block content %}
+
+<nav class="navbar">
+    <div class="navbar-logo">
+        <a href="#"><img src="{% static 'img/PyMation_logo.png' %}" alt="Logo"></a>
+    </div>
+    <ul class="navbar-links">
+        <li><a href="{% url 'expenses' %}">Expenses</a></li>
+        <li><a href="{% url 'income' %}">Income</a></li>
+        <li><a href="{% url 'stats' %}">Statistics</a></li>
+        <li><a href="{% url 'account' %}">Account</a></li>
+    </ul>
+</nav>
+
+<h2 style="text-align: center;">Account</h2>
+
+<div class="account-info">
+    <p><strong>Logged in as:</strong> {{ user.username }}</p>
+    <a class="btn btn-secondary" href= "{% url 'preferences' %}">Preferences</a>
+    <a class="btn btn-primary" href="{% url 'logout' %}">Sign out</a>
+    <form action = "{% url 'delete-user' user.id %} " method="POST" onsubmit="return confirmDeleteAccount()">
+        {% csrf_token %}
+            <input type="submit" value="Delete account" class="btn btn-danger mt-2">
+    </form>
+</div>
+
+{% endblock %}

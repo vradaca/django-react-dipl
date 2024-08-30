@@ -1,37 +1,35 @@
-{%extends 'base.html' %}
+{%extends 'base_stats.html' %}
 {% load static%}
 {% block content %}
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Expense Statistic</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Stats</li>
-    </ol>
-  </nav>
+<nav class="navbar">
+  <div class="navbar-logo">
+      <a href="#"><img src="{% static 'img/PyMation_logo.png' %}" alt="Logo"></a>
+  </div>
+  <ul class="navbar-links">
+      <li><a href="{% url 'expenses' %}">Expenses</a></li>
+      <li><a href="{% url 'income' %}">Income</a></li>
+      <li><a href="{% url 'stats' %}">Statistics</a></li>
+      <li><a href="{% url 'account' %}">Account</a></li>
+  </ul>
+</nav>
 
-<h1> Expense statistics </h1>
+<h1> General statistics </h1>
 
-<div>
+<div class="charts">
 {% include 'partials/_messages.html' %}
 
-<div>
-    <canvas id="myChart"></canvas>
-  </div>
+<div class="myChart">
+    <canvas id="myChartExp"></canvas>
+</div>
+
+<div class="myChart">
+  <canvas id="myChartInc"></canvas>
+</div>
 
 </div>
 
-<form action="{% url 'logout' %}" method="POST">
-{% csrf_token %}
-    <hr>
-    <a href= "{% url 'preferences' %}">Preferences</a> <br>
-    <a href= "{% url 'income' %}">Income</a> <br>
-    <a href= "{% url 'stats' %}">Stats</a> <br>
-    <a href= "{% url 'expenses' %}">Expenses</a> <br>
-    <input type="submit" value= "Sign out"/>
-    
-
-</form>
-
-<script src={% static 'js/stats.js' %}></script>
+<script src={% static 'js/statsExpense.js' %}></script>
+<script src={% static 'js/statsIncome.js' %}></script>
 
 {% endblock %}

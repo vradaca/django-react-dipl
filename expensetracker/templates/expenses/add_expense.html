@@ -8,19 +8,19 @@
     </ol>
 </nav>
 
-<h1>
+<h1 style="text-align: center;">
     Add expense
 </h1>
 
-<form action="{% url 'add-expenses' %}" method="post">
+<form id="add_exp" action="{% url 'add-expenses' %}" method="post">
 
     {% csrf_token %}
     {% include 'partials/_messages.html' %}
 
-    <label for="amount">Amount</label><input type="text" value="{{values.amount}}" name="amount"><br>
-    <label for="date">Date of Expense</label><input type="date" name="expense_date"><br>
-    <label for="description">Description</label><input type="text" value="{{values.description}}" name="description"><br>
-    <label for="Category">Category</label><select name="category"><br>
+    <label for="amount">Amount: </label><input type="text" value="{{values.amount}}" name="amount"><br>
+    <label for="date">Date of Expense: </label><input type="date" name="expense_date"><br>
+    <label for="description">Description: </label><input type="text" value="{{values.description}}" name="description"><br>
+    <label for="Category">Category: </label><select name="category"><br>
         {% for category in categories %}
         <option name="category" value="{{category.name}}">{{category.name}}</option>
         {% endfor%}
@@ -28,5 +28,7 @@
 
     <input type="submit" value="Submit">
 </form>
+
+<a href="/expenses/" style="margin: 10px;" class="btn btn-secondary" > Back </a>
 
 {% endblock %}

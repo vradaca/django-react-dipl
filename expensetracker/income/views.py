@@ -3,9 +3,11 @@ from django.contrib.auth.decorators import login_required
 from .models import Source, Income
 from django.contrib import messages
 from django.core.paginator import Paginator
-import json
 from django.http import JsonResponse
 from userpreferences.models import UserPreference
+import datetime
+import json
+
 
 # Create your views here.
 
@@ -113,3 +115,30 @@ def income_delete(request, id):
     income.delete()
     messages.success(request, 'income deleted')
     return redirect('income')
+
+def income_category_summary(request):
+    todays = datetime.date.today()
+    six_m_a = todays - datetime.timedelta(days = 30*6)
+    incomes = Income.objects.filter(owner = request.user, 
+                                      date__gte = six_m_a, date__lte = todays) 
+    finalrep = {}
+
+    def get_source(income):
+          return income.source
+
+    category_list = list(set(map(get_source, incomes)))
+     
+    def get_income_source_amount(source):
+        amount = 0
+        filtered_by_source = incomes.filter(source = source)
+
+        for item in filtered_by_source:
+             amount += item.amount
+
+        return amount
+    
+    for inc in incomes:
+          for src in category_list:
+               finalrep[src] = get_income_source_amount(src)
+
+    return JsonResponse({'income_category_data': finalrep}, safe = False)

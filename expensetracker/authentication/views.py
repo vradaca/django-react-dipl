@@ -82,7 +82,7 @@ class RegistrationView(View):
                                'uidb64':uidb64,
                                 'token':token_generator.make_token(user)
                                 })
-                active_url = 'https://' + domain + link
+                active_url = 'http://' + domain + link
 
 
                 email_body = 'Hello ' + user.username + '\nThank you for signing up for BudgetTracker!\n' + 'Please verify your email address before you can login! \n\n' + active_url

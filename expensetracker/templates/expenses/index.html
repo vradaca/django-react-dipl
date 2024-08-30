@@ -2,37 +2,40 @@
 {% load static%}
 {% block content %}
 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Expenses</a></li>
-      <li class="breadcrumb-item active" aria-current="page">My Expenses</li>
-    </ol>
-  </nav>
+<nav class="navbar">
+    <div class="navbar-logo">
+        <a href="#"><img src="{% static 'img/PyMation_logo.png' %}" alt="Logo"></a>
+    </div>
+    <ul class="navbar-links">
+        <li><a href="{% url 'expenses' %}">Expenses</a></li>
+        <li><a href="{% url 'income' %}">Income</a></li>
+        <li><a href="{% url 'stats' %}">Statistics</a></li>
+        <li><a href="{% url 'account' %}">Account</a></li>
+    </ul>
+</nav>
 
-  <div>
+<h1> Expenses </h1>
 
-    <a href="{% url 'add-expenses' %}"> Add expenses </a>
-
-  </div>
-
-<h1> Expense </h1>
+<div class="actions">
+    <a href="{% url 'add-expenses' %}" class="btn btn-primary"> Add expenses </a>
+</div>
 
 <div>
 {% include 'partials/_messages.html' %}
 {% if expenses.count %}
-<div id = "exports">
-    <a href="{% url 'export-csv'%}"> Export to CSV </a>
-    <a href="{% url 'export-xls'%}"> Export to Excel </a>
-    <a href="{% url 'export-pdf'%}"> Export to PDF </a>
+<div id = "exports" class="export-links">
+    <a href="{% url 'export-csv'%}" class="btn btn-secondary"> Export to CSV </a>
+    <a href="{% url 'export-xls'%}" class="btn btn-secondary"> Export to Excel </a>
+    <a href="{% url 'export-pdf'%}" class="btn btn-secondary"> Export to PDF </a>
 </div>
 
-<div>
-        <input type= "text" id="searchField" placeholder="Search">
+<div class="search-bar">
+        <input type= "text" id="searchField" placeholder="Search" class="form-control">
 </div>
 
-    <div class = "app-table">
-        <table>
-        <thead>
+    <div class = "table-container">
+        <div class="app-table">
+        <table class=" table table-stripped table-responsive">
             <thead>
                 <tr>
                     <th>Amount ({{currency}})</th>
@@ -50,8 +53,8 @@
                     <td>{{expense.date}}</td>
                     <td>{{expense.description}}</td>
                     <td>{{expense.category}}</td>
-                    <td><a href="{% url 'expense-edit' expense.id %}">Edit</a></td>
-                    <td><a href="{% url 'expense-delete' expense.id %}">X</a></td>
+                    <td><a href="{% url 'expense-edit' expense.id %}" class="btn btn-sm btn-warning">Edit</a></td>
+                    <td><button class="btn btn-sm btn-danger" onclick="confirmDeleteExpense({{expense.id}})">X</button></td>
                     <td></td>
                 </tr>
                 {% endfor%}
@@ -59,10 +62,8 @@
         </table>
     </div>
 
-    <div class = "table-output">
-        <table>
-
-            <thead>
+    <div class = "table-output" style="display:none;">
+        <table class=" table table-stripped table-responsive">
                 <thead>
                     <tr>
                         <th>Amount ({{currency}})</th>
@@ -73,38 +74,49 @@
                         <th></th>
                     </tr>
                 </thead>
-
                 <tbody class = "table-body">
                     
                 </tbody>
             </table>
+        </div>
     </div>
 
     <div class="pagination">
-        Showing page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+        <span>Showing page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
     </div>
+
+    <ul class="pagination align-right float-right mr-auto">
+        {% if page_obj.has_previous %}
+        <li class="page-item {% if page_obj.number == 1 %} active {% endif %}"><a class="page-link" href="?page=1">&laquo; 1</a></li>
+        <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        {% endif %}
+  
+        {% if page_obj.has_next %}
+        <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        <li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+        {% endif %}
+  
+    </ul>
 
 
 {% endif %}
 </div>
 
-<form action="{% url 'logout' %}" method="POST">
-{% csrf_token %}
-    <hr>
-    <a href= "{% url 'preferences' %}">Preferences</a> <br>
-    <a href= "{% url 'income' %}">Income</a> <br>
-    <a href= "{% url 'stats' %}">Stats</a> <br>
-    <input type="submit" value= "Sign out"/>
-</form>
-
-
-<form action = "{% url 'delete-user' user.id %} " method="POST">
-{% csrf_token %}
-    <input type="submit" value="Delete account">
-</form>
-
+<div id="deleteExpenseModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('deleteExpenseModal')">&times;</span>
+        <h2>Confirm Deletion</h2>
+        <p>Are you sure you want to delete this expense?</p>
+        <form id="deleteExpenseForm" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-secondary" onclick="closeModal('deleteExpenseModal')">Cancel</button>
+        </form>
+    </div>
+</div>
 
  <script src={% static 'js/searchExpenses.js' %}></script>
+ <script src={% static 'js/deleteConfirmation.js'%}></script>
 
  {{ redirect_to_login_immediatelly }}
 
