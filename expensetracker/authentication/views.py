@@ -32,7 +32,7 @@ class EmailValidationView(View):
         if not validate_email(email):
             return JsonResponse({'email_error': 'Email is invalid'}, status = 400)
         if User.objects.filter(email = email).exists():
-            return JsonResponse({'email_error':'Sorry, email in use, please choose another one'}, status = 400)
+            return JsonResponse({'email_error':'Sorry, email in use,choose another one'}, status = 400)
         
         return JsonResponse({'email_valid': True})
     
@@ -44,7 +44,7 @@ class UsernameValidationView(View):
         if not str(username).isalnum():
             return JsonResponse({'username_error': 'Username should only contain alphanumeric characters'}, status = 400)
         if User.objects.filter(username = username).exists():
-            return JsonResponse({'username_error':'Sorry, username in use, please choose another one'}, status = 400)
+            return JsonResponse({'username_error':'Sorry, username in use, choose another one'}, status = 400)
         
         return JsonResponse({'username_valid': True})
 
@@ -184,7 +184,7 @@ class ResetPasswordView(View):
                                 'token':email_content['token']
                                 })
         
-        reset_url = 'https://' + domain + link
+        reset_url = 'http://' + domain + link
 
         emailMsg = EmailMessage(
             'Password reset Instructions - BudgetTracker',
