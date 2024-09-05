@@ -6,7 +6,7 @@ const username_err_feedback = document.querySelector('.username_feedback');
 const email_err_feedback = document.querySelector('.email_feedback');
 const showPswdToggle = document.querySelector('.show_pass');
 
-
+if(username !== null){
 username.addEventListener("keyup", (e) => {
 
     const usernameVal = e.target.value;
@@ -30,6 +30,7 @@ username.addEventListener("keyup", (e) => {
         });
     }
 })
+}
 
 if(email !== null){
     email.addEventListener("keyup", (e) => {

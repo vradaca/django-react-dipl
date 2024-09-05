@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 from .models import Source, Income
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -26,6 +27,7 @@ def search_income(request):
         return JsonResponse(list(data), safe = False)
 
 @login_required(login_url='/authentication/login')
+@never_cache
 def index(request):
     sources = Source.objects.all()
     incomes = Income.objects.filter(owner=request.user)

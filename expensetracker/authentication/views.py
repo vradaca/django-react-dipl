@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.mail import EmailMessage
@@ -147,10 +147,15 @@ class LoginView(View):
             return render(request, 'authentication/login.html')
 
 class LogoutView(View):
+    def get(self, request):
+        auth.logout(request)
+        messages.success(request, 'Successfully logged out!')
+        return HttpResponseRedirect(reverse('login'))
     def post(self, request):
         auth.logout(request)
         messages.success(request, 'Succesfuly logged out!')
-        return redirect('login')
+        return HttpResponseRedirect(reverse('login'))
+
     
 class ResetPasswordView(View):
     def get(self, request):

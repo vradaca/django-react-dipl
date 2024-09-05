@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
 from .models import Category, Expense
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -31,6 +32,7 @@ def search_expenses(request):
         return JsonResponse(list(data), safe = False)
 
 @login_required(login_url='/authentication/login')
+@never_cache
 def index(request):
     categories = Category.objects.all()
     expenses = Expense.objects.filter(owner=request.user)
@@ -150,6 +152,8 @@ def expense_category_summary(request):
 
     return JsonResponse({'expense_category_data': finalrep}, safe = False)
 
+@login_required(login_url='/authentication/login')
+@never_cache
 def stats_view(request):
     return render(request, 'expenses/stats.html')
     
