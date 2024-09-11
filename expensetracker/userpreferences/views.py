@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import os 
 import json
 from django.conf import settings
@@ -42,4 +42,4 @@ def index(request):
             UserPreference.objects.create(user = request.user, currency = currency)
         
         messages.success(request, 'Changes saved')
-        return render(request, 'preferences/index.html', {'currencies': currency_data, 'user_preferences': user_preferences})
+        return redirect('expenses')

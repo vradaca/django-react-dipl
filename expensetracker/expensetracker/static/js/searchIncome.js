@@ -1,12 +1,12 @@
 const searchField = document.querySelector("#searchField");
-const showResults = document.querySelector(".income-table-output");
-const appTable = document.querySelector(".income-app-table");
+const showResults = document.querySelector(".table-output");
+const appTable = document.querySelector(".app-table");
 const pagination = document.querySelector(".pagination");
 const tBody = document.querySelector(".table-body");
 
-showResults.style.display = "none";
-
-searchField.addEventListener('keyup', (e)=> {
+if(searchField !== null){
+    
+    searchField.addEventListener('keyup', (e)=> {
 
     const searchVal = e.target.value;
 
@@ -31,9 +31,7 @@ searchField.addEventListener('keyup', (e)=> {
 
             } else {
 
-                data.forEach(element => {
-                    
-                
+                data.forEach(element => {  
 
                 tBody.innerHTML += 
                 `
@@ -43,7 +41,8 @@ searchField.addEventListener('keyup', (e)=> {
                 <td>${element.date}</td>
                 <td>${element.description}</td>
                 <td>${element.source}</td>
-
+                <td><a href="edit-income/${element.id}" class="btn btn-sm btn-warning">Edit</a></td>
+                <td><button class="btn btn-sm btn-danger" onclick="confirmDeleteIncome(${element.id})">X</button></td>
                 </tr>
                 `;
 
@@ -59,4 +58,5 @@ searchField.addEventListener('keyup', (e)=> {
 
     }
 
-})
+    })
+}

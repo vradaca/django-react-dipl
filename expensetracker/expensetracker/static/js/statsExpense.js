@@ -1,3 +1,9 @@
+const exp = document.getElementById('exp');
+const renderNoExpenseMessage = () => {
+    const messageDiv = document.createElement('div');
+    messageDiv.textContent = "No expenses in the last 6 months";
+    exp.appendChild(messageDiv);
+  }
 const renderChartExp = (data, labels) => {
 
     const ctx = document.getElementById('myChartExp');
@@ -36,15 +42,17 @@ const getChartDataExp = () => {
     fetch('/expenses/expense-category-summary')
     .then((res) => res.json())
     .then((result) => {
-        console.log("result", result);
         const category_data = result.expense_category_data;
-        const [data, labels] = [
-            Object.keys(category_data), 
-            Object.values(category_data),
-        ];
+        const data = Object.values(category_data);
+        const labels = Object.keys(category_data);
 
-        renderChartExp(labels, data)
+        if (data.length === 0 || data.every(item => item === 0)) {
+            exp.innerHTML = '';
+            renderNoExpenseMessage();
+        } else {
+            renderChartExp(data, labels);
+        }
     });
 }
 
-document.onload = getChartDataExp()
+document.onload = getChartDataExp();

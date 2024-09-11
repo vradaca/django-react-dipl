@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
 
 def landing_page(request):
-    return render(request, r"frontend\build\index.html")
+    return redirect('http://localhost:3000/')
 
 # Create your views here.

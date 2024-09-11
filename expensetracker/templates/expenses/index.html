@@ -61,8 +61,10 @@
             </tbody>
         </table>
     </div>
-
-    <div class = "table-output" style="display:none;">
+    <div class="pagination">
+        <span>Showing page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
+    </div>
+    <div class = "table-output" style="display: none;">
         <table class=" table table-stripped table-responsive">
                 <thead>
                     <tr>
@@ -75,14 +77,9 @@
                     </tr>
                 </thead>
                 <tbody class = "table-body">
-                    
                 </tbody>
             </table>
         </div>
-    </div>
-
-    <div class="pagination">
-        <span>Showing page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
     </div>
 
     <ul class="pagination align-right float-right mr-auto">
@@ -97,8 +94,8 @@
         {% endif %}
   
     </ul>
-
-
+{% else %}
+<p> No expenses added </p>
 {% endif %}
 </div>
 
