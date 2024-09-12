@@ -21,8 +21,13 @@
 </div>
 
 <div>
-{% include 'partials/_messages.html' %}
-{% if incomes.count %}
+    {% include 'partials/_messages.html' %}
+    {% if incomes.count %}
+    <div id = "exports" class="export-links">
+        <a href="{% url 'export-inc-csv'%}" class="btn btn-secondary"> Export to CSV </a>
+        <a href="{% url 'export-inc-xls'%}" class="btn btn-secondary"> Export to Excel </a>
+        <a href="{% url 'export-inc-pdf'%}" class="btn btn-secondary"> Export to PDF </a>
+    </div>
 
 <div class="search-bar">
         <input type= "text" id="searchField" placeholder="Search" class="form-control">
@@ -101,7 +106,7 @@
     <div class="modal-content">
         <span class="close" onclick="closeModal('deleteExpenseModal')">&times;</span>
         <h2>Confirm Deletion</h2>
-        <p>Are you sure you want to delete this expense?</p>
+        <p>Are you sure you want to delete this income?</p>
         <form id="deleteIncomeForm" method="POST">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger">Delete</button>

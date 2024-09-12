@@ -40,6 +40,14 @@ body {
     transition: color 0.3s ease;
 }
 
+.actions, .export-links, .search-bar {
+    margin-bottom: 20px;
+}
+
+.export-links .btn {
+    margin-right: 10px;
+}
+
 h1 {
     margin-bottom: 20px;
 }
@@ -362,11 +370,11 @@ hr {
 }
 
 @media (max-width: 768px) {
-    .breadcrumb, .incort-links, .search-bar, .table-container, .pagination, .user-actions {
+    .breadcrumb, .export-links .incort-links, .search-bar, .table-container, .pagination, .user-actions {
         text-align: center;
     }
 
-    .incort-links .btn, .user-actions .btn {
+    .export-links .btn, .incort-links .btn, .user-actions .btn {
         display: block;
         margin-bottom: 10px;
     }

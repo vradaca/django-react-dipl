@@ -84,12 +84,18 @@ html, body {
   margin: 0 auto;
 }
 
+.section p a {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.section p a:hover {
+  color: #61dafb; 
+}
+
+
 .section img {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
-}
-
-.sectionLinks{
-  color: white;
 }

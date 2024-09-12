@@ -67,3 +67,6 @@ h1 {
     width: 100% !important;
     height: 400px !important;
 }
+.myChart h4{
+    text-align: center;
+}

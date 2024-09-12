@@ -62,9 +62,9 @@ function App() {
           <section className="section contact">
             <h2>Contact Us</h2>
             <p>If you have any questions or need assistance, feel free to reach out to us any way you can! 
-              <br /><strong>Email:</strong> <a className="contactLinks" href="mailto:veljkonrt115@gs.viser.edu.rs">veljkonrt115@gs.viser.edu.rs</a>
-              <br /><strong>Github:</strong> <a className="contactLinks" href="https://github.com/vradaca" target="_blank">https://github.com/vradaca</a>
-              <br /><strong>Linkedin:</strong> <a className="contactLinks" href="https://www.linkedin.com/in/veljko-rada%C4%8Da-535485265/" target="_blank">https://www.linkedin.com/in/veljko-rada%C4%8Da-535485265/</a>
+              <br /><strong>Email:</strong> <a href="mailto:veljkonrt115@gs.viser.edu.rs">veljkonrt115@gs.viser.edu.rs</a>
+              <br /><strong>Github:</strong> <a href="https://github.com/vradaca" target="_blank">https://github.com/vradaca</a>
+              <br /><strong>Linkedin:</strong> <a href="https://www.linkedin.com/in/veljko-rada%C4%8Da-535485265/" target="_blank">https://www.linkedin.com/in/veljko-rada%C4%8Da-535485265/</a>
             </p> 
             <img src={pic3} alt="Contact Us" />
           </section>
