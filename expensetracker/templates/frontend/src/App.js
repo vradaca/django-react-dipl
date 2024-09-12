@@ -1,14 +1,14 @@
 import { useRef } from 'react'
-import './App.css';
+import './CSS/App.css';
 import Navbar from './components/Navbar';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
-import bg1 from './bg_1.jpg';
-import bg2 from './bg_2.jpg';
-import bg3 from './bg_3.jpg';
-import pic1 from './pic1.jpg';
-import pic2 from './pic2.jpg';
-import pic3 from './pic3.jpg';
-import darkBg from './dark_bg.jpg';
+import bg1 from './media/bg_1.jpg';
+import bg2 from './media/bg_2.jpg';
+import bg3 from './media/bg_3.jpg';
+import pic1 from './media/pic1.jpg';
+import pic2 from './media/pic2.jpg';
+import pic3 from './media/pic3.jpg';
+import darkBg from './media/dark_bg.jpg';
 
 function App() {
 
