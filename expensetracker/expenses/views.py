@@ -75,6 +75,9 @@ def add_expenses(request):
         if not amount:
             messages.error(request, 'Amount is required')
             return render(request, 'expenses/add_expense.html', context)
+        elif not amount.replace('.', '', 1).isdigit():  # Check if it's a valid number
+            messages.error(request, 'Amount must be a number')
+            return render(request, 'expenses/add_expense.html', context)
         elif not description: 
             messages.error(request, 'Description is required')
             return render(request, 'expenses/add_expense.html', context)
